@@ -2,7 +2,7 @@ import { ArrowLeftIcon } from "lucide-react";
 import { useState } from "react";
 import toast from "react-hot-toast";
 import { Link, useNavigate } from "react-router";
-import axios from "axios";
+import api from "../lib/axios";
 
 
 const CreatePage = () => {
@@ -21,7 +21,7 @@ const CreatePage = () => {
 
     setLoading(true);
     try {
-      await axios.post("http://localhost:5000/notes", {
+      await api.post("/notes", {
         title,
         content,
       });
