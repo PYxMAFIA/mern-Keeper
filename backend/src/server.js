@@ -1,20 +1,18 @@
 import express from "express";
-import notesRoutes from "./routes/notesRoutes.js"
-import {connectDB} from "../config/db.js"
-import dotenv from "dotenv";
 import cors from "cors";
+import dotenv from "dotenv";
 import path from "path";
+
+import notesRoutes from "./routes/notesRoutes.js";
+import { connectDB } from "../config/db.js";
+
 dotenv.config();
 
 const app = express();
-const PORT = process.env.PORT || 5000
+const PORT = process.env.PORT || 5001;
 const __dirname = path.resolve();
 
-
-
-//middleware
-app.use(express.json()); // for use of req.body
-// app.use(cors()); //allow require from every URL
+// middleware
 if (process.env.NODE_ENV !== "production") {
   app.use(
     cors({
@@ -22,10 +20,15 @@ if (process.env.NODE_ENV !== "production") {
     })
   );
 }
+app.use(express.json()); // this middleware will parse JSON bodies: req.body
 
+// our simple custom middleware
+// app.use((req, res, next) => {
+//   console.log(`Req method is ${req.method} & Req URL is ${req.url}`);
+//   next();
+// });
 
-app.use("/notes", notesRoutes);
-
+app.use("/api/notes", notesRoutes);
 
 if (process.env.NODE_ENV === "production") {
   app.use(express.static(path.join(__dirname, "../frontend/dist")));
@@ -35,10 +38,8 @@ if (process.env.NODE_ENV === "production") {
   });
 }
 
-
-connectDB().then(()=>{
-    app.listen(PORT, (req,res)=> {
-    console.log('server is started 0n port:',PORT);
+connectDB().then(() => {
+  app.listen(PORT, () => {
+    console.log("Server started on PORT:", PORT);
+  });
 });
-});
-
