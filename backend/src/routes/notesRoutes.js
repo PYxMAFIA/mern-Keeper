@@ -1,12 +1,12 @@
 import express from "express";
-import { protectRoute } from "../../middleWare/auth.middleware.js";
+import { protectRoute } from "../middleWare/auth.middleware.js";
 import {
   createNote,
   deleteNote,
   getAllNotes,
   getNoteById,
   updateNote
-} from '../../controllers/notesController.js';
+} from '../controllers/notesController.js';
 
 const router = express.Router();
 

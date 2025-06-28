@@ -5,7 +5,7 @@ import path from "path";
 import cookieParser from 'cookie-parser'
 import authRoutes from "./routes/authRoutes.js";
 import notesRoutes from "./routes/notesRoutes.js";
-import { connectDB } from "../config/db.js";
+import { connectDB } from "./config/db.js";
 
 dotenv.config();
 
